@@ -10,5 +10,10 @@
   "require": {
     "guzzlehttp/guzzle": "^7.2",
     "swiftmailer/swiftmailer": "^6.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Semieway\\Lastfmreports\\": "src/"
+    }
   }
 }
