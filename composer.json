@@ -1,0 +1,12 @@
+{
+  "name": "semieway/lastfm-reports",
+  "description": "Last.fm email weekly reports",
+  "authors": [
+    {
+      "name": "Alex Sirotin",
+      "email": "semieway@gmail.com"
+    }
+  ],
+  "require": {
+  }
+}
