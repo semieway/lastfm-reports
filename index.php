@@ -10,8 +10,6 @@ if (true) {
     $db = new Database();
     $users = $db->getUsers();
 
-    foreach($users as $user) {
-        $report = new Report($user);
-        $report->generate();
-    }
+    $report = new Report($users);
+    $report->generate();
 }

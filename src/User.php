@@ -1,8 +1,8 @@
 <?php
 
-
 namespace App;
 
+use GuzzleHttp\Client;
 
 class User
 {
@@ -16,17 +16,22 @@ class User
     /** @var string */
     protected $email;
 
-    /** @var string */
-    protected $follows;
+    /** @var array */
+    protected $follows = [];
 
-    /** @var string */
-    protected $artists;
+    /** @var array */
+    protected $artists = [];
 
-    /** @var string */
-    protected $albums;
+    /** @var array */
+    protected $albums = [];
 
-    /** @var string */
-    protected $tracks;
+    /** @var array */
+    protected $tracks = [];
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * @return string
@@ -55,9 +60,19 @@ class User
     /**
      * @param string $avatar
      */
-    public function setAvatar(string $avatar): void
+    public function setAvatar(): void
     {
-        $this->avatar = $avatar;
+        $response = Report::$client->request('GET', '/', [
+            'query' => [
+                'method' => 'user.getinfo',
+                'user' => $this->getName(),
+                'format' => 'json',
+            ]
+        ]);
+
+        $data = json_decode($response);
+
+        $this->avatar = $data->user->image[2]->{'#text'};
     }
 
     /**
@@ -77,25 +92,31 @@ class User
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getFollows(): string
+    public function getFollows(): array
     {
         return $this->follows;
     }
 
     /**
-     * @param string $follows
+     * @param string $follow
      */
-    public function setFollows(string $follows): void
+    public function setFollows(string $follow): void
     {
-        $this->follows = $follows;
+        $user = new User($follow);
+        $user->setAvatar();
+        $user->setArtists();
+        $user->setAlbums();
+        $user->setTracks();
+
+        $this->follows[] = $user;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getArtists(): string
+    public function getArtists(): array
     {
         return $this->artists;
     }
@@ -105,13 +126,23 @@ class User
      */
     public function setArtists(string $artists): void
     {
-        $this->artists = $artists;
+        $response = Report::$client->request('GET', '/', [
+            'query' => [
+                'method' => 'user.getweeklyartistchart',
+                'user' => $this->getName(),
+                'format' => 'json',
+            ]
+        ]);
+
+        $data = json_decode($response);
+
+        $this->artists = array_slice($data->weeklyartistchart->artist, 0, 5);
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getAlbums(): string
+    public function getAlbums(): array
     {
         return $this->albums;
     }
@@ -121,13 +152,23 @@ class User
      */
     public function setAlbums(string $albums): void
     {
-        $this->albums = $albums;
+        $response = Report::$client->request('GET', '/', [
+            'query' => [
+                'method' => 'user.getWeeklyAlbumChart',
+                'user' => $this->getName(),
+                'format' => 'json',
+            ]
+        ]);
+
+        $data = json_decode($response);
+
+        $this->albums = array_slice($data->weeklyalbumchart->album, 0, 5);
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getTracks(): string
+    public function getTracks(): array
     {
         return $this->tracks;
     }
@@ -137,7 +178,17 @@ class User
      */
     public function setTracks(string $tracks): void
     {
-        $this->tracks = $tracks;
+        $response = Report::$client->request('GET', '/', [
+            'query' => [
+                'method' => 'user.getWeeklyTrackChart',
+                'user' => $this->getName(),
+                'format' => 'json',
+            ]
+        ]);
+
+        $data = json_decode($response);
+
+        $this->tracks = array_slice($data->weeklytrackchart->track, 0, 5);
     }
 
 }

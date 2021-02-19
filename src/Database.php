@@ -11,7 +11,8 @@ class Database
 
     public function __construct()
     {
-
+        //$this->url = '';
+        //return database object;
     }
 
     public function getUsers(): array
