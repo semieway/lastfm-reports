@@ -62,17 +62,18 @@ class User
      */
     public function setAvatar(): void
     {
-        $response = Report::$client->request('GET', '/', [
+        $response = Report::$client->request('GET', '', [
             'query' => [
+                'api_key' => Report::$apiToken,
                 'method' => 'user.getinfo',
                 'user' => $this->getName(),
                 'format' => 'json',
             ]
         ]);
 
-        $data = json_decode($response);
+        $data = json_decode($response->getBody(), true);
 
-        $this->avatar = $data->user->image[2]->{'#text'};
+        $this->avatar = $data['user']['image'][2]['#text'];
     }
 
     /**
@@ -121,22 +122,20 @@ class User
         return $this->artists;
     }
 
-    /**
-     * @param string $artists
-     */
-    public function setArtists(string $artists): void
+    public function setArtists(): void
     {
-        $response = Report::$client->request('GET', '/', [
+        $response = Report::$client->request('GET', '', [
             'query' => [
+                'api_key' => Report::$apiToken,
                 'method' => 'user.getweeklyartistchart',
                 'user' => $this->getName(),
                 'format' => 'json',
             ]
         ]);
 
-        $data = json_decode($response);
+        $data = json_decode($response->getBody(), true);
 
-        $this->artists = array_slice($data->weeklyartistchart->artist, 0, 5);
+        $this->artists = array_slice($data['weeklyartistchart']['artist'], 0, 5);
     }
 
     /**
@@ -147,22 +146,20 @@ class User
         return $this->albums;
     }
 
-    /**
-     * @param string $albums
-     */
-    public function setAlbums(string $albums): void
+    public function setAlbums(): void
     {
-        $response = Report::$client->request('GET', '/', [
+        $response = Report::$client->request('GET', '', [
             'query' => [
+                'api_key' => Report::$apiToken,
                 'method' => 'user.getWeeklyAlbumChart',
                 'user' => $this->getName(),
                 'format' => 'json',
             ]
         ]);
 
-        $data = json_decode($response);
+        $data = json_decode($response->getBody(), true);
 
-        $this->albums = array_slice($data->weeklyalbumchart->album, 0, 5);
+        $this->albums = array_slice($data['weeklyalbumchart']['album'], 0, 5);
     }
 
     /**
@@ -173,22 +170,20 @@ class User
         return $this->tracks;
     }
 
-    /**
-     * @param string $tracks
-     */
-    public function setTracks(string $tracks): void
+    public function setTracks(): void
     {
-        $response = Report::$client->request('GET', '/', [
+        $response = Report::$client->request('GET', '', [
             'query' => [
+                'api_key' => Report::$apiToken,
                 'method' => 'user.getWeeklyTrackChart',
                 'user' => $this->getName(),
                 'format' => 'json',
             ]
         ]);
 
-        $data = json_decode($response);
+        $data = json_decode($response->getBody(), true);
 
-        $this->tracks = array_slice($data->weeklytrackchart->track, 0, 5);
+        $this->tracks = array_slice($data['weeklytrackchart']['track'], 0, 5);
     }
 
 }

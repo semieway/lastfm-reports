@@ -18,8 +18,8 @@ class Database
     public function getUsers(): array
     {
         return [
-            ['name' => 'semieway', 'following' => 'fllwurdrms'],
-            ['name' => 'fllwurdrms', 'following' => 'semieway']
+            ['name' => 'semieway', 'email' => 'semieway@gmail.com', 'follows' => 'fllwurdrms'],
+            ['name' => 'fllwurdrms', 'email' => 'fflwurdrms@gmail.com', 'follows' => 'semieway']
         ];
     }
 }

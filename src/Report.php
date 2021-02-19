@@ -8,15 +8,14 @@ class Report
 {
 
     protected $users = [];
-    protected $apiToken;
+    static $apiToken;
     static $client;
 
     public function __construct($usersInfo)
     {
-        $this->apiToken = getenv('API_TOKEN');
+        self::$apiToken = 'e1f13d8d85028b986325241119b3696a';
         self::$client = new Client([
-            'base_uri' => 'http://ws.audioscrobbler.com/2.0' ,
-            'query' => ['api_key' => $this->apiToken]
+            'base_uri' => 'https://ws.audioscrobbler.com/2.0',
         ]);
 
         foreach ($usersInfo as $userInfo) {
@@ -42,6 +41,6 @@ class Report
 
     public function generate()
     {
-
+        var_dump($this->users);
     }
 }
