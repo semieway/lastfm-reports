@@ -19,7 +19,7 @@ class Database
     {
         return [
             ['name' => 'semieway', 'email' => 'semieway@gmail.com', 'follows' => 'fllwurdrms'],
-            ['name' => 'fllwurdrms', 'email' => 'fflwurdrms@gmail.com', 'follows' => 'semieway']
+            ['name' => 'fllwurdrms', 'email' => 'semieway@mail.ru', 'follows' => 'semieway']
         ];
     }
 }

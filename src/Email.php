@@ -1,11 +1,42 @@
 <?php
 
-
 namespace App;
 
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class Email
 {
-    protected $baseTemplate;
+    static $mailer;
+    static $twig;
+    protected $user;
 
+    public function __construct(User $user)
+    {
+        $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 465))
+            ->setUsername('semieway@gmail.com')
+            ->setPassword('akhucdrfwsgatdym')
+            ->setEncryption('SSL');
+        static::$mailer = new \Swift_Mailer($transport);
+        $loader = new FilesystemLoader(__DIR__ . '/../templates');
+        static::$twig = new Environment($loader);
+
+        $this->user = $user;
+    }
+
+    public function send()
+    {
+        $message = (new \Swift_Message('Last.fm report'))
+            ->setFrom('semieway@gmail.com')
+            ->setTo($this->user->getEmail())
+            ->setBody(
+                self::$twig->render(
+                    'base.html.twig',
+                    ['user' => $this->user]
+                ),
+                'text/html'
+            );
+
+        self::$mailer->send($message);
+    }
 }

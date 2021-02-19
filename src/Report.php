@@ -41,6 +41,9 @@ class Report
 
     public function generate()
     {
-        var_dump($this->users);
+        foreach ($this->users as $user) {
+            $email = new Email($user);
+            $email->send();
+        }
     }
 }
