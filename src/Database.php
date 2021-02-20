@@ -17,6 +17,6 @@ class Database
     public function getUsers(): array
     {
         $query = pg_query($this->connection, 'SELECT * from users');
-        return pg_fetch_array($query, null, PGSQL_ASSOC);
+        return pg_fetch_all($query, PGSQL_ASSOC);
     }
 }
