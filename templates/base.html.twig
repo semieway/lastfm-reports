@@ -1,56 +1,131 @@
-<body style="font-family: Arial, sans-serif; font-size: 14px">
+<body style="font-family: Arial, sans-serif; font-size: 16px; text-align: center">
 
-<img src="{{ user.avatar }}" style="display: inline-block; position: relative; top: 13px; width: 40px; height: 40px; border-radius: 50%">
-<h2 style="display: inline-block; font-size: 22px; margin-left: 7px">{{ user.name }}:</h2>
+<!-- User -->
+<img src="{{ user.avatar }}" style="width: 100px; height: 100px; border-radius: 50%">
+<h2 style="font-size: 28px; margin-top: 0">{{ user.name|capitalize }}</h2>
 
-<p style="font-size: 18px; margin-top: 7px">
+<p style="font-size: 19px; margin-top: 7px">
     <span style="font-weight: bold">Total scrobbles:</span> {{ user.totalScrobbles }}
 </p>
+<span style="font-size: 20px">
+    {% if user.totalScrobbles >= 100 %}😎
+    {% elseif user.totalScrobbles >=50 and user.totalScrobbles < 100 %}🧐
+    {% elseif user.totalScrobbles > 0 and user.totalScrobbles < 50 %}😏
+    {% else %}🥺
+    {% endif %}
+</span>
+<br>
+{% if user.totalScrobbles > 0 %}
 <p>
-    Top Artists:
+    <span style="font-size: 18px; margin-bottom: 5px">Top Artists</span><br>
+    <table style="width: 400px; margin-left: auto; margin-right: auto">
     {% for artist in user.artists %}
-        <span style="font-weight: bold">{{ artist.name }}: </span><span>{{ artist.playcount }}</span>
+        <tr>
+            {% set border = 'border-bottom: 1px solid #f5f5f5;' %}
+            {% if loop.last %}
+                {% set border = 'border-bottom: none;' %}
+            {% endif %}
+            <td style="width: 350px; text-align: left; {{ border }} padding-bottom: 5px; padding-top: 5px"><span style="font-weight: bold;">♪ {{ artist.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="font-size: 14px;">{{ artist.playcount }}</span></td>
+        </tr>
     {% endfor %}
+    </table>
 </p>
 <p>
-    Top Albums:
+    <span style="font-size: 18px; margin-bottom: 5px">Top Albums</span><br>
+    <table style="width: 400px; margin-left: auto; margin-right: auto">
     {% for album in user.albums %}
-        <span style="font-weight: bold">{{ album.artist['#text']}} — {{ album.name }}: </span><span>{{ album.playcount }}</span>
+        <tr>
+            {% set border = 'border-bottom: 1px solid #f5f5f5;' %}
+            {% if loop.last %}
+                {% set border = 'border-bottom: none;' %}
+            {% endif %}
+            <td style="width: 350px; text-align: left; {{ border }} padding-bottom: 5px; padding-top: 5px"><span style="font-weight: bold">⋆ {{ album.artist['#text']}} — {{ album.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="font-size: 14px">{{ album.playcount }}</span></td>
+        </tr>
     {% endfor %}
+    </table>
 </p>
 <p>
-    Top Tracks:
+    <span style="font-size: 18px; margin-bottom: 5px">Top Tracks</span><br>
+    <table style="width: 400px; margin-left: auto; margin-right: auto">
     {% for track in user.tracks %}
-        <span style="font-weight: bold">{ album.artist['#text']}} — {{ track.name }}: </span><span>{{ track.playcount }}</span>
+        <tr>
+            {% set border = 'border-bottom: 1px solid #f5f5f5;' %}
+            {% if loop.last %}
+                {% set border = 'border-bottom: none;' %}
+            {% endif %}
+            <td style="width: 350px; text-align: left; {{ border }} padding-bottom: 5px; padding-top: 5px"><span style="font-weight: bold">• {{ track.artist['#text'] }} — {{ track.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="font-size: 14px">{{ track.playcount }}</span></td>
+        </tr>
     {% endfor %}
+    </table>
 </p>
-<hr>
-{% for follow in user.follows %}
-    <img src="{{ user.avatar }}" style="display: inline-block; position: relative; top: 13px; width: 40px; height: 40px; border-radius: 50%">
-    <h2 style="display: inline-block; font-size: 22px; margin-left: 7px">{{ user.name }}:</h2>
+{% else %}
+<img src="https://media.giphy.com/media/6uGhT1O4sxpi8/source.gif">
+{% endif %}
+<hr style="border: 1px dashed grey; margin-top: 30px; margin-bottom: 30px; border-bottom-color: transparent">
 
-    <p style="font-size: 18px; margin-top: 7px">
-        <span style="font-weight: bold">Total scrobbles:</span> {{ user.totalScrobbles }}
+<!-- Followers -->
+{% for follow in user.follows %}
+    <img src="{{ follow.avatar }}" style="width: 100px; height: 100px; border-radius: 50%">
+    <h2 style="font-size: 28px; margin-top: 0">{{ follow.name|capitalize }}</h2>
+
+    <p style="font-size: 19px; margin-top: 7px">
+        <span style="font-weight: bold">Total scrobbles:</span> {{ follow.totalScrobbles }}
     </p>
-    <p>
-        Top Artists:
-        {% for artist in user.artists %}
-            <span style="font-weight: bold">{{ artist.name }}: </span><span>{{ artist.playcount }}</span>
-        {% endfor %}
-    </p>
-    <p>
-        Top Albums:
-        {% for album in user.albums %}
-            <span style="font-weight: bold">{{ album.artist['#text']}} — {{ album.name }}: </span><span>{{ album.playcount }}</span>
-        {% endfor %}
-    </p>
-    <p>
-        Top Tracks:
-        {% for track in user.tracks %}
-            <span style="font-weight: bold">{ album.artist['#text']}} — {{ track.name }}: </span><span>{{ track.playcount }}</span>
-        {% endfor %}
-    </p>
-    <hr>
+    <span style="font-size: 20px">
+    {% if follow.totalScrobbles >= 100 %}😎
+    {% elseif follow.totalScrobbles >=50 and follow.totalScrobbles < 100 %}🧐
+    {% elseif follow.totalScrobbles > 0 and follow.totalScrobbles < 50 %}😏
+    {% else %}🥺
+    {% endif %}
+</span>
+    <br>
+    {% if follow.totalScrobbles > 0 %}
+        <p>
+            <span style="font-size: 18px; margin-bottom: 5px">Top Artists</span><br>
+        <table style="width: 400px; margin-left: auto; margin-right: auto">
+            {% for artist in follow.artists %}
+                <tr>
+                    {% set border = 'border-bottom: 1px solid #f5f5f5;' %}
+                    {% if loop.last %}
+                    {% set border = 'border-bottom: none;' %}
+                    {% endif %}
+                    <td style="width: 350px; text-align: left; {{ border }} padding-bottom: 5px; padding-top: 5px"><span style="font-weight: bold;">♪ {{ artist.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="font-size: 14px;">{{ artist.playcount }}</span></td>
+                </tr>
+            {% endfor %}
+        </table>
+        </p>
+        <p>
+            <span style="font-size: 18px; margin-bottom: 5px">Top Albums</span><br>
+        <table style="width: 400px; margin-left: auto; margin-right: auto">
+            {% for album in follow.albums %}
+                <tr>
+                    {% set border = 'border-bottom: 1px solid #f5f5f5;' %}
+                    {% if loop.last %}
+                        {% set border = 'border-bottom: none;' %}
+                    {% endif %}
+                    <td style="width: 350px; text-align: left; {{ border }} padding-bottom: 5px; padding-top: 5px"><span style="font-weight: bold">⋆ {{ album.artist['#text']}} — {{ album.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="font-size: 14px">{{ album.playcount }}</span></td>
+                </tr>
+            {% endfor %}
+        </table>
+        </p>
+        <p>
+            <span style="font-size: 18px; margin-bottom: 5px">Top Tracks</span><br>
+        <table style="width: 400px; margin-left: auto; margin-right: auto">
+            {% for track in follow.tracks %}
+                <tr>
+                    {% set border = 'border-bottom: 1px solid #f5f5f5;' %}
+                    {% if loop.last %}
+                        {% set border = 'border-bottom: none;' %}
+                    {% endif %}
+                    <td style="width: 350px; text-align: left; {{ border }} padding-bottom: 5px; padding-top: 5px"><span style="font-weight: bold">• {{ track.artist['#text'] }} — {{ track.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="font-size: 14px">{{ track.playcount }}</span></td>
+                </tr>
+            {% endfor %}
+        </table>
+        </p>
+    {% else %}
+        <img src="https://media.giphy.com/media/6uGhT1O4sxpi8/source.gif">
+    {% endif %}
+    <hr style="border: 1px dashed grey; margin-top: 30px; margin-bottom: 30px; border-bottom-color: transparent">
 {% endfor %}
 
 </body>

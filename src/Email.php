@@ -28,8 +28,8 @@ class Email
 
     public function send()
     {
-        $message = (new \Swift_Message('Last.fm report'))
-            ->setFrom('semieway@gmail.com', 'Last.fm')
+        $message = (new \Swift_Message('Your top music from'))
+            ->setFrom('semieway@gmail.com', 'Last.fm Report')
             ->setTo($this->user->getEmail())
             ->setBody(
                 self::$twig->render(
