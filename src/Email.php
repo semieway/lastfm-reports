@@ -29,13 +29,19 @@ class Email
     public function send()
     {
         date_default_timezone_set($this->user->getTimezone());
+        $query = pg_query(Database::$connection, 'SELECT * from quotes ORDER BY RANDOM()');
+        $quote = pg_fetch_array($query, null, PGSQL_ASSOC);
+
         $message = (new \Swift_Message('Your top music from '.date('j M', $this->user->getFromTime()).' — '.date('j M Y', $this->user->getToTime() - 1)))
             ->setFrom('semieway@gmail.com', 'Last.fm Report')
             ->setTo($this->user->getEmail())
             ->setBody(
                 self::$twig->render(
                     'base.html.twig',
-                    ['user' => $this->user]
+                    [
+                        'user' => $this->user,
+                        'quote' => $quote
+                    ]
                 ),
                 'text/html'
             );
