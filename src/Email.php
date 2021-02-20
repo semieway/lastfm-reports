@@ -22,12 +22,14 @@ class Email
         static::$twig = new Environment($loader);
 
         $this->user = $user;
+
+//        var_dump($user); exit;
     }
 
     public function send()
     {
         $message = (new \Swift_Message('Last.fm report'))
-            ->setFrom('semieway@gmail.com')
+            ->setFrom('semieway@gmail.com', 'Last.fm')
             ->setTo($this->user->getEmail())
             ->setBody(
                 self::$twig->render(

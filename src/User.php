@@ -28,6 +28,9 @@ class User
     /** @var array */
     protected $tracks = [];
 
+    /** @var int */
+    protected $totalScrobbles;
+
     public function __construct(string $name)
     {
         $this->name = $name;
@@ -184,6 +187,20 @@ class User
         $data = json_decode($response->getBody(), true);
 
         $this->tracks = array_slice($data['weeklytrackchart']['track'], 0, 5);
+        $this->setTotalScrobbles($data['weeklytrackchart']['track']);
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalScrobbles(): int
+    {
+        return $this->totalScrobbles;
+    }
+
+    public function setTotalScrobbles($tracks): void
+    {
+        $this->totalScrobbles = array_reduce($tracks, function ($acc, $value) { return $acc + $value['playcount']; }, 0);
     }
 
 }

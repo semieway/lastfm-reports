@@ -1,4 +1,56 @@
-<body style="font-family: Arial, sans-serif; font-size: 20px">
-<h1>Your music last week:</h1>
+<body style="font-family: Arial, sans-serif; font-size: 14px">
+
+<img src="{{ user.avatar }}" style="display: inline-block; position: relative; top: 13px; width: 40px; height: 40px; border-radius: 50%">
+<h2 style="display: inline-block; font-size: 22px; margin-left: 7px">{{ user.name }}:</h2>
+
+<p style="font-size: 18px; margin-top: 7px">
+    <span style="font-weight: bold">Total scrobbles:</span> {{ user.totalScrobbles }}
+</p>
+<p>
+    Top Artists:
+    {% for artist in user.artists %}
+        <span style="font-weight: bold">{{ artist.name }}: </span><span>{{ artist.playcount }}</span>
+    {% endfor %}
+</p>
+<p>
+    Top Albums:
+    {% for album in user.albums %}
+        <span style="font-weight: bold">{{ album.artist['#text']}} — {{ album.name }}: </span><span>{{ album.playcount }}</span>
+    {% endfor %}
+</p>
+<p>
+    Top Tracks:
+    {% for track in user.tracks %}
+        <span style="font-weight: bold">{ album.artist['#text']}} — {{ track.name }}: </span><span>{{ track.playcount }}</span>
+    {% endfor %}
+</p>
+<hr>
+{% for follow in user.follows %}
+    <img src="{{ user.avatar }}" style="display: inline-block; position: relative; top: 13px; width: 40px; height: 40px; border-radius: 50%">
+    <h2 style="display: inline-block; font-size: 22px; margin-left: 7px">{{ user.name }}:</h2>
+
+    <p style="font-size: 18px; margin-top: 7px">
+        <span style="font-weight: bold">Total scrobbles:</span> {{ user.totalScrobbles }}
+    </p>
+    <p>
+        Top Artists:
+        {% for artist in user.artists %}
+            <span style="font-weight: bold">{{ artist.name }}: </span><span>{{ artist.playcount }}</span>
+        {% endfor %}
+    </p>
+    <p>
+        Top Albums:
+        {% for album in user.albums %}
+            <span style="font-weight: bold">{{ album.artist['#text']}} — {{ album.name }}: </span><span>{{ album.playcount }}</span>
+        {% endfor %}
+    </p>
+    <p>
+        Top Tracks:
+        {% for track in user.tracks %}
+            <span style="font-weight: bold">{ album.artist['#text']}} — {{ track.name }}: </span><span>{{ track.playcount }}</span>
+        {% endfor %}
+    </p>
+    <hr>
+{% endfor %}
 
 </body>
