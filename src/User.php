@@ -28,6 +28,9 @@ class User
     /** @var array */
     protected $tracks = [];
 
+    /** @var string */
+    protected $timezone;
+
     /** @var int */
     protected $totalScrobbles;
 
@@ -202,5 +205,22 @@ class User
     {
         $this->totalScrobbles = array_reduce($tracks, function ($acc, $value) { return $acc + $value['playcount']; }, 0);
     }
+
+    /**
+     * @return string
+     */
+    public function getTimezone(): string
+    {
+        return $this->timezone;
+    }
+
+    /**
+     * @param string $timezone
+     */
+    public function setTimezone(string $timezone): void
+    {
+        $this->timezone = $timezone;
+    }
+
 
 }
