@@ -232,7 +232,7 @@ class User
     public function setTimezone(string $timezone): void
     {
         $this->timezone = $timezone;
-        $this->fromTime = strval(strtotime('last saturday '.$this->getTimezone()));
+        $this->fromTime = strval(strtotime('last friday '.$this->getTimezone()));
         $this->toTime = strval(strtotime('today '.$this->getTimezone()));
     }
 

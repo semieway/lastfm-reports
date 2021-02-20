@@ -5,8 +5,7 @@ require_once 'vendor/autoload.php';
 use App\Database;
 use App\Report;
 
-// TODO change to sunday morning time check.
-if (true) {
+if (date('w') == 5) {
     $db = new Database();
     $users = $db->getUsers();
 
