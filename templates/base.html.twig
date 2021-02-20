@@ -2,10 +2,12 @@
 
 <!-- User -->
 <img src="{{ user.avatar }}" style="width: 100px; height: 100px; border-radius: 50%">
-<h2 style="font-size: 28px; margin-top: 0">{{ user.name|capitalize }}</h2>
+<h2 style="font-size: 28px; margin-top: 0; margin-bottom: 10px">{{ user.name|capitalize }}</h2>
 
 <p style="font-size: 19px; margin-top: 7px">
-    <span style="font-weight: bold">Total scrobbles:</span> {{ user.totalScrobbles }}
+    <a href="https://www.last.fm/user/{{ user.name }}/library?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; color: black"><span style="font-weight: bold">Total scrobbles:</span> {{ user.totalScrobbles }} </a>
+    <br>
+    <span style="font-size: 16px; color: grey">({{ (user.totalScrobbles / 7)|round(0, 'floor') }} average per day)</span>
 </p>
 <span style="font-size: 20px">
     {% if user.totalScrobbles >= 100 %}😎
@@ -16,8 +18,8 @@
 </span>
 <br>
 {% if user.totalScrobbles > 0 %}
-<p>
-    <span style="font-size: 18px; margin-bottom: 5px">Top Artists</span><br>
+<p style="margin-bottom: 10px">
+    <span style="display: inline-block; font-size: 18px; width: 400px; background-color: #f5f5f5; border-radius: 15px; padding: 2px">Top Artists</span><br>
     <table style="width: 400px; margin-left: auto; margin-right: auto">
     {% for artist in user.artists %}
         <tr>
@@ -29,9 +31,10 @@
         </tr>
     {% endfor %}
     </table>
+    <a href="https://www.last.fm/user/{{ user.name }}/library/artists?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; font-size: 12px; color: #ababab">View full chart</a>
 </p>
-<p>
-    <span style="font-size: 18px; margin-bottom: 5px">Top Albums</span><br>
+<p style="margin-bottom: 10px; margin-top: 22px">
+    <span style="display: inline-block; font-size: 18px; width: 400px; background-color: #f5f5f5; border-radius: 15px; padding: 2px">Top Albums</span><br>
     <table style="width: 400px; margin-left: auto; margin-right: auto">
     {% for album in user.albums %}
         <tr>
@@ -43,9 +46,10 @@
         </tr>
     {% endfor %}
     </table>
+    <a href="https://www.last.fm/user/{{ user.name }}/library/albums?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; font-size: 12px; color: #ababab">View full chart</a>
 </p>
-<p>
-    <span style="font-size: 18px; margin-bottom: 5px">Top Tracks</span><br>
+<p style="margin-bottom: 10px; margin-top: 22px">
+    <span style="display: inline-block; font-size: 18px; width: 400px; background-color: #f5f5f5; border-radius: 15px; padding: 2px">Top Tracks</span><br>
     <table style="width: 400px; margin-left: auto; margin-right: auto">
     {% for track in user.tracks %}
         <tr>
@@ -57,19 +61,23 @@
         </tr>
     {% endfor %}
     </table>
+    <a href="https://www.last.fm/user/{{ user.name }}/library/tracks?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; font-size: 12px; color: #ababab">View full chart</a>
 </p>
+    <a href="https://www.last.fm/user/{{ user.name }}/listening-report" style="text-decoration: none; color: white; background-color: #b90000; padding: 7px 15px; border-radius: 10px">Full listening report ➚</a>
 {% else %}
-<img src="https://media.giphy.com/media/6uGhT1O4sxpi8/source.gif">
+<img src="https://media.giphy.com/media/6uGhT1O4sxpi8/source.gif" style="margin-top: 20px">
 {% endif %}
 <hr style="border: 1px dashed grey; margin-top: 30px; margin-bottom: 30px; border-bottom-color: transparent">
 
 <!-- Followers -->
 {% for follow in user.follows %}
     <img src="{{ follow.avatar }}" style="width: 100px; height: 100px; border-radius: 50%">
-    <h2 style="font-size: 28px; margin-top: 0">{{ follow.name|capitalize }}</h2>
+    <h2 style="font-size: 28px; margin-top: 0; margin-bottom: 10px">{{ follow.name|capitalize }}</h2>
 
     <p style="font-size: 19px; margin-top: 7px">
-        <span style="font-weight: bold">Total scrobbles:</span> {{ follow.totalScrobbles }}
+        <a href="https://www.last.fm/user/{{ follow.name }}/library?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; color: black;"><span style="font-weight: bold">Total scrobbles:</span> {{ follow.totalScrobbles }}</a>
+        <br>
+        <span style="font-size: 16px; color: grey">({{ (follow.totalScrobbles / 7)|round(0, 'floor') }} average per day)</span>
     </p>
     <span style="font-size: 20px">
     {% if follow.totalScrobbles >= 100 %}😎
@@ -80,8 +88,8 @@
 </span>
     <br>
     {% if follow.totalScrobbles > 0 %}
-        <p>
-            <span style="font-size: 18px; margin-bottom: 5px">Top Artists</span><br>
+        <p style="margin-bottom: 10px">
+            <span style="display: inline-block; font-size: 18px; width: 400px; background-color: #f5f5f5; border-radius: 15px; padding: 2px">Top Artists</span><br>
         <table style="width: 400px; margin-left: auto; margin-right: auto">
             {% for artist in follow.artists %}
                 <tr>
@@ -93,9 +101,10 @@
                 </tr>
             {% endfor %}
         </table>
+        <a href="https://www.last.fm/user/{{ follow.name }}/library/artists?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; font-size: 12px; color: #ababab">View full chart</a>
         </p>
-        <p>
-            <span style="font-size: 18px; margin-bottom: 5px">Top Albums</span><br>
+        <p style="margin-bottom: 10px; margin-top: 22px">
+            <span style="display: inline-block; font-size: 18px; width: 400px; background-color: #f5f5f5; border-radius: 15px; padding: 2px">Top Albums</span><br>
         <table style="width: 400px; margin-left: auto; margin-right: auto">
             {% for album in follow.albums %}
                 <tr>
@@ -107,9 +116,10 @@
                 </tr>
             {% endfor %}
         </table>
+        <a href="https://www.last.fm/user/{{ follow.name }}/library/albums?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; font-size: 12px; color: #ababab">View full chart</a>
         </p>
-        <p>
-            <span style="font-size: 18px; margin-bottom: 5px">Top Tracks</span><br>
+        <p style="margin-bottom: 10px; margin-top: 22px">
+            <span style="display: inline-block; font-size: 18px; width: 400px; background-color: #f5f5f5; border-radius: 15px; padding: 2px">Top Tracks</span><br>
         <table style="width: 400px; margin-left: auto; margin-right: auto">
             {% for track in follow.tracks %}
                 <tr>
@@ -121,9 +131,11 @@
                 </tr>
             {% endfor %}
         </table>
+        <a href="https://www.last.fm/user/{{ follow.name }}/library/tracks?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; font-size: 12px; color: #ababab">View full chart</a>
         </p>
+        <a href="https://www.last.fm/user/{{ follow.name }}/listening-report" style="text-decoration: none; color: white; background-color: #b90000; padding: 7px 15px; border-radius: 10px">Full listening report ➚</a>
     {% else %}
-        <img src="https://media.giphy.com/media/6uGhT1O4sxpi8/source.gif">
+        <img src="https://media.giphy.com/media/6uGhT1O4sxpi8/source.gif" style="margin-top: 20px">
     {% endif %}
     <hr style="border: 1px dashed grey; margin-top: 30px; margin-bottom: 30px; border-bottom-color: transparent">
 {% endfor %}

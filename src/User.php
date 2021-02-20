@@ -29,7 +29,13 @@ class User
     protected $tracks = [];
 
     /** @var string */
-    protected $timezone;
+    protected $timezone = 'UTC';
+
+    /** @var string */
+    protected $fromTime;
+
+    /** @var string */
+    protected $toTime;
 
     /** @var int */
     protected $totalScrobbles;
@@ -135,6 +141,8 @@ class User
                 'api_key' => Report::$apiToken,
                 'method' => 'user.getweeklyartistchart',
                 'user' => $this->getName(),
+                'from' => $this->fromTime,
+                'to' => $this->toTime,
                 'format' => 'json',
             ]
         ]);
@@ -159,6 +167,8 @@ class User
                 'api_key' => Report::$apiToken,
                 'method' => 'user.getWeeklyAlbumChart',
                 'user' => $this->getName(),
+                'from' => $this->fromTime,
+                'to' => $this->toTime,
                 'format' => 'json',
             ]
         ]);
@@ -183,6 +193,8 @@ class User
                 'api_key' => Report::$apiToken,
                 'method' => 'user.getWeeklyTrackChart',
                 'user' => $this->getName(),
+                'from' => $this->fromTime,
+                'to' => $this->toTime,
                 'format' => 'json',
             ]
         ]);
@@ -220,7 +232,24 @@ class User
     public function setTimezone(string $timezone): void
     {
         $this->timezone = $timezone;
+        $this->fromTime = strval(strtotime('last saturday '.$this->getTimezone()));
+        $this->toTime = strval(strtotime('today '.$this->getTimezone()));
     }
 
+    /**
+     * @return string
+     */
+    public function getFromTime(): string
+    {
+        return $this->fromTime;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToTime(): string
+    {
+        return $this->toTime;
+    }
 
 }

@@ -27,6 +27,7 @@ class Report
     {
         $user = new User($userInfo['name']);
         $user->setEmail($userInfo['email']);
+        $user->setTimezone($userInfo['timezone']);
         $user->setAvatar();
         $user->setArtists();
         $user->setAlbums();
