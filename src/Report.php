@@ -13,7 +13,7 @@ class Report
 
     public function __construct($usersInfo)
     {
-        self::$apiToken = 'e1f13d8d85028b986325241119b3696a';
+        self::$apiToken = getenv('API_TOKEN');
         self::$client = new Client([
             'base_uri' => 'https://ws.audioscrobbler.com/2.0',
         ]);

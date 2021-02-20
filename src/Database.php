@@ -7,19 +7,16 @@ namespace App;
 class Database
 {
 
-    private $url;
+    private $connection;
 
     public function __construct()
     {
-        //$this->url = '';
-        //return database object;
+        $this->connection = pg_connect(getenv('DATABASE_URL'));
     }
 
     public function getUsers(): array
     {
-        return [
-            ['name' => 'semieway', 'email' => 'semieway@gmail.com', 'follows' => 'fllwurdrms', 'timezone' => 'Asia/Yekaterinburg'],
-            ['name' => 'fllwurdrms', 'email' => 'semieway@yandex.ru', 'follows' => 'semieway', 'timezone' => 'Asia/Yekaterinburg']
-        ];
+        $query = pg_query($this->connection, 'SELECT * from users');
+        return pg_fetch_array($query, null, PGSQL_ASSOC);
     }
 }
