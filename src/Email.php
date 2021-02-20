@@ -28,6 +28,7 @@ class Email
 
     public function send()
     {
+        date_default_timezone_set($this->user->getTimezone());
         $message = (new \Swift_Message('Your top music from '.date('j M', $this->user->getFromTime()).' — '.date('j M Y', $this->user->getToTime() - 1)))
             ->setFrom('semieway@gmail.com', 'Last.fm Report')
             ->setTo($this->user->getEmail())
