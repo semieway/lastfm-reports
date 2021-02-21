@@ -12,9 +12,10 @@
     {% endif %}
 </p>
 <span style="font-size: 20px">
-    {% if user.totalScrobbles >= 100 %}😎
-    {% elseif user.totalScrobbles >=50 and user.totalScrobbles < 100 %}🧐
-    {% elseif user.totalScrobbles > 0 and user.totalScrobbles < 50 %}😏
+    {% if user.totalScrobbles >= 200 %}😎
+    {% elseif user.totalScrobbles >= 100 and user.totalScrobbles < 200 %}😏
+    {% elseif user.totalScrobbles >= 50 and user.totalScrobbles < 100 %}😌
+    {% elseif user.totalScrobbles > 0 and user.totalScrobbles < 50 %}🙃
     {% else %}🥺
     {% endif %}
 </span>
@@ -84,9 +85,10 @@
         {% endif %}
     </p>
     <span style="font-size: 20px">
-    {% if follow.totalScrobbles >= 100 %}😎
-    {% elseif follow.totalScrobbles >=50 and follow.totalScrobbles < 100 %}🧐
-    {% elseif follow.totalScrobbles > 0 and follow.totalScrobbles < 50 %}😏
+    {% if follow.totalScrobbles >= 200 %}😎
+    {% elseif follow.totalScrobbles >= 100 and follow.totalScrobbles < 200 %}😏
+    {% elseif follow.totalScrobbles >= 50 and follow.totalScrobbles < 100 %}😌
+    {% elseif follow.totalScrobbles > 0 and follow.totalScrobbles < 50 %}🙃
     {% else %}🥺
     {% endif %}
 </span>
