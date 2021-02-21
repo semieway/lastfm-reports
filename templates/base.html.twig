@@ -74,26 +74,23 @@
 
 <!-- Followers -->
 {% for follow in user.follows %}
+    {% if follow.totalScrobbles > 0 %}
     <img src="{{ follow.avatar }}" style="width: 100px; height: 100px; border-radius: 50%{% if user.totalScrobbles >= 200 %}; border:6px solid gold {% endif %}">
     <h2 style="font-size: 28px; margin-top: 0; margin-bottom: 10px">{{ follow.name|capitalize }}</h2>
 
     <p style="font-size: 19px; margin-top: 7px">
         <a href="https://www.last.fm/user/{{ follow.name }}/library?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; color: black;"><span style="font-weight: bold">Total scrobbles:</span> {{ follow.totalScrobbles }}</a>
         <br>
-        {% if follow.totalScrobbles > 0 %}
         <span style="font-size: 16px; color: grey">({{ (follow.totalScrobbles / 7)|round(0, 'floor') }} average per day)</span>
-        {% endif %}
     </p>
     <span style="font-size: 20px">
     {% if follow.totalScrobbles >= 200 %}😎
     {% elseif follow.totalScrobbles >= 100 and follow.totalScrobbles < 200 %}😏
     {% elseif follow.totalScrobbles >= 50 and follow.totalScrobbles < 100 %}😌
     {% elseif follow.totalScrobbles > 0 and follow.totalScrobbles < 50 %}🙃
-    {% else %}🥺
     {% endif %}
 </span>
     <br>
-    {% if follow.totalScrobbles > 0 %}
         <p style="margin-bottom: 10px">
             <span style="display: inline-block; font-size: 18px; width: 400px; background-color: #f5f5f5; border-radius: 15px; padding: 2px">Top Artists</span><br>
         <table style="width: 400px; margin-left: auto; margin-right: auto">
@@ -110,10 +107,8 @@
         <a href="https://www.last.fm/user/{{ follow.name }}/library/artists?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; font-size: 12px; color: #ababab">View full chart</a>
         </p>
         <a href="https://www.last.fm/user/{{ follow.name }}/listening-report" style="text-decoration: none; color: white; background-color: #b90000; padding: 7px 15px; border-radius: 10px">Full listening report ➚</a>
-    {% else %}
-        <img src="https://media.giphy.com/media/6uGhT1O4sxpi8/source.gif" style="margin-top: 20px">
-    {% endif %}
     <hr style="border: 1px dashed grey; margin-top: 23px; margin-bottom: 30px; border-bottom-color: transparent">
+    {% endif %}
 {% endfor %}
 <p style="width: 400px; margin-left: auto; margin-right: auto; color: grey"><span style="font-style: italic">«{{ quote.text }}»</span><span style="display: inline-block; padding-left: 5px;">— {{ quote.author }}</span></p>
 </body>

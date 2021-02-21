@@ -15,8 +15,8 @@ class Email
     public function __construct(User $user)
     {
         $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 465))
-            ->setUsername(getenv('EMAIL_USERNAME'))
-            ->setPassword(getenv('EMAIL_PASSWORD'))
+            ->setUsername('semieway@gmail.com')
+            ->setPassword('akhucdrfwsgatdym')
             ->setEncryption('SSL');
         static::$mailer = new \Swift_Mailer($transport);
         $loader = new FilesystemLoader(__DIR__ . '/../templates');
@@ -27,8 +27,8 @@ class Email
         $query = pg_query(Database::$connection, 'SELECT * from quotes WHERE sent = FALSE ORDER BY RANDOM()');
         if (!isset(self::$quote)) {
             self::$quote = pg_fetch_array($query, null, PGSQL_ASSOC);
+            $res = pg_update(Database::$connection, 'quotes', ['sent' => TRUE], ['id' => self::$quote['id']]);
         }
-        $res = pg_update(Database::$connection, 'quotes', ['sent' => TRUE], ['id' => self::$quote['id']]);
     }
 
     public function send()
