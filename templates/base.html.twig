@@ -29,7 +29,7 @@
             {% if loop.last %}
                 {% set border = 'border-bottom: none;' %}
             {% endif %}
-            <td style="width: 350px; text-align: left; {{ border }} padding-bottom: 5px; padding-top: 5px"><span style="font-weight: bold;">♪ {{ artist.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="font-size: 14px;">{{ artist.playcount }}</span></td>
+            <td style="width: 350px; text-align: left; {{ border }} padding-top: 5px;{% if loop.first %} height: 55px; font-size: 22px{% else %} padding-bottom: 5px{% endif %}"><span style="font-weight: bold;">♪ {{ artist.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="{% if loop.first %}font-size: 20px{% else %}font-size: 14px{% endif %}">{{ artist.playcount }}</span></td>
         </tr>
     {% endfor %}
     </table>
@@ -44,7 +44,7 @@
             {% if loop.last %}
                 {% set border = 'border-bottom: none;' %}
             {% endif %}
-            <td style="width: 350px; text-align: left; {{ border }} padding-bottom: 5px; padding-top: 5px"><span style="font-weight: bold">⋆ {{ album.artist['#text']}} — {{ album.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="font-size: 14px">{{ album.playcount }}</span></td>
+            <td style="width: 350px; text-align: left; {{ border }} padding-top: 5px;{% if loop.first %} height: 55px; font-size: 22px{% else %} padding-bottom: 5px{% endif %}"><span style="font-weight: bold">⋆ {{ album.artist['#text']}} — {{ album.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="{% if loop.first %}font-size: 20px{% else %}font-size: 14px{% endif %}">{{ album.playcount }}</span></td>
         </tr>
     {% endfor %}
     </table>
@@ -59,7 +59,7 @@
             {% if loop.last %}
                 {% set border = 'border-bottom: none;' %}
             {% endif %}
-            <td style="width: 350px; text-align: left; {{ border }} padding-bottom: 5px; padding-top: 5px"><span style="font-weight: bold">• {{ track.artist['#text'] }} — {{ track.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="font-size: 14px">{{ track.playcount }}</span></td>
+            <td style="width: 350px; text-align: left; {{ border }} padding-top: 5px;{% if loop.first %} height: 55px; font-size: 22px{% else %} padding-bottom: 5px{% endif %}"><span style="font-weight: bold">• {{ track.artist['#text'] }} — {{ track.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="{% if loop.first %}font-size: 20px{% else %}font-size: 14px{% endif %}">{{ track.playcount }}</span></td>
         </tr>
     {% endfor %}
     </table>
@@ -101,7 +101,7 @@
                     {% if loop.last %}
                     {% set border = 'border-bottom: none;' %}
                     {% endif %}
-                    <td style="width: 350px; text-align: left; {{ border }} padding-bottom: 5px; padding-top: 5px"><span style="font-weight: bold;">♪ {{ artist.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="font-size: 14px;">{{ artist.playcount }}</span></td>
+                    <td style="width: 350px; text-align: left; {{ border }} padding-top: 5px;{% if loop.first %} height: 55px; font-size: 22px{% else %} padding-bottom: 5px{% endif %}"><span style="font-weight: bold;">♪ {{ artist.name }}</span></td><td style="{{ border }} padding-bottom: 5px; padding-top: 5px; padding-left: 30px"><span style="{% if loop.first %}font-size: 20px{% else %}font-size: 14px{% endif %}">{{ artist.playcount }}</span></td>
                 </tr>
             {% endfor %}
         </table>
