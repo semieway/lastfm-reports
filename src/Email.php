@@ -15,8 +15,8 @@ class Email
     public function __construct(User $user)
     {
         $transport = (new \Swift_SmtpTransport('smtp.gmail.com', 465))
-            ->setUsername('semieway@gmail.com')
-            ->setPassword('akhucdrfwsgatdym')
+            ->setUsername(getenv('EMAIL_USERNAME'))
+            ->setPassword(getenv('EMAIL_PASSWORD'))
             ->setEncryption('SSL');
         static::$mailer = new \Swift_Mailer($transport);
         $loader = new FilesystemLoader(__DIR__ . '/../templates');
