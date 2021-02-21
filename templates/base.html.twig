@@ -79,7 +79,7 @@
     <p style="font-size: 19px; margin-top: 7px">
         <a href="https://www.last.fm/user/{{ follow.name }}/library?from={{ user.fromTime }}&to={{ user.toTime }}" style="text-decoration: none; color: black;"><span style="font-weight: bold">Total scrobbles:</span> {{ follow.totalScrobbles }}</a>
         <br>
-        {% if user.totalScrobbles > 0 %}
+        {% if follow.totalScrobbles > 0 %}
         <span style="font-size: 16px; color: grey">({{ (follow.totalScrobbles / 7)|round(0, 'floor') }} average per day)</span>
         {% endif %}
     </p>
