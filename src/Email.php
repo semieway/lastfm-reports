@@ -24,8 +24,9 @@ class Email
 
         $this->user = $user;
 
-        $query = pg_query(Database::$connection, 'SELECT * from quotes ORDER BY RANDOM()');
+        $query = pg_query(Database::$connection, 'SELECT * from quotes WHERE sent = FALSE ORDER BY RANDOM()');
         self::$quote = pg_fetch_array($query, null, PGSQL_ASSOC);
+        $res = pg_update(Database::$connection, 'quotes', ['sent' => TRUE], ['id' => self::$quote['id']]);
     }
 
     public function send()
