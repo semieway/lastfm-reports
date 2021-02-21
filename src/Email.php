@@ -10,6 +10,7 @@ class Email
     static $mailer;
     static $twig;
     protected $user;
+    static $quote;
 
     public function __construct(User $user)
     {
@@ -23,14 +24,13 @@ class Email
 
         $this->user = $user;
 
-//        var_dump($user); exit;
+        $query = pg_query(Database::$connection, 'SELECT * from quotes ORDER BY RANDOM()');
+        self::$quote = pg_fetch_array($query, null, PGSQL_ASSOC);
     }
 
     public function send()
     {
         date_default_timezone_set($this->user->getTimezone());
-        $query = pg_query(Database::$connection, 'SELECT * from quotes ORDER BY RANDOM()');
-        $quote = pg_fetch_array($query, null, PGSQL_ASSOC);
 
         $message = (new \Swift_Message('Your top music from '.date('j M', $this->user->getFromTime()).' — '.date('j M Y', $this->user->getToTime() - 1)))
             ->setFrom('semieway@gmail.com', 'Last.fm Report')
@@ -40,7 +40,7 @@ class Email
                     'base.html.twig',
                     [
                         'user' => $this->user,
-                        'quote' => $quote
+                        'quote' => self::$quote
                     ]
                 ),
                 'text/html'
