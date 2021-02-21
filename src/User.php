@@ -29,13 +29,13 @@ class User
     protected $tracks = [];
 
     /** @var string */
-    protected $timezone = 'UTC';
+    static $timezone = 'UTC';
 
     /** @var string */
-    protected $fromTime;
+    static $fromTime;
 
     /** @var string */
-    protected $toTime;
+    static $toTime;
 
     /** @var int */
     protected $totalScrobbles;
@@ -120,7 +120,6 @@ class User
         $user = new User($follow);
         $user->setAvatar();
         $user->setArtists();
-        $user->setAlbums();
         $user->setTracks();
 
         $this->follows[] = $user;
@@ -141,8 +140,8 @@ class User
                 'api_key' => Report::$apiToken,
                 'method' => 'user.getweeklyartistchart',
                 'user' => $this->getName(),
-                'from' => $this->fromTime,
-                'to' => $this->toTime,
+                'from' => self::$fromTime,
+                'to' => self::$toTime,
                 'format' => 'json',
             ]
         ]);
@@ -167,8 +166,8 @@ class User
                 'api_key' => Report::$apiToken,
                 'method' => 'user.getWeeklyAlbumChart',
                 'user' => $this->getName(),
-                'from' => $this->fromTime,
-                'to' => $this->toTime,
+                'from' => self::$fromTime,
+                'to' => self::$toTime,
                 'format' => 'json',
             ]
         ]);
@@ -193,8 +192,8 @@ class User
                 'api_key' => Report::$apiToken,
                 'method' => 'user.getWeeklyTrackChart',
                 'user' => $this->getName(),
-                'from' => $this->fromTime,
-                'to' => $this->toTime,
+                'from' => self::$fromTime,
+                'to' => self::$toTime,
                 'format' => 'json',
             ]
         ]);
@@ -223,7 +222,7 @@ class User
      */
     public function getTimezone(): string
     {
-        return $this->timezone;
+        return self::$timezone;
     }
 
     /**
@@ -231,9 +230,9 @@ class User
      */
     public function setTimezone(string $timezone): void
     {
-        $this->timezone = $timezone;
-        $this->fromTime = strval(strtotime('last friday '.$this->getTimezone()));
-        $this->toTime = strval(strtotime('today '.$this->getTimezone()));
+        self::$timezone = $timezone;
+        self::$fromTime = strval(strtotime('last friday '.$this->getTimezone()));
+        self::$toTime = strval(strtotime('today '.$this->getTimezone()));
     }
 
     /**
@@ -241,7 +240,7 @@ class User
      */
     public function getFromTime(): string
     {
-        return $this->fromTime;
+        return self::$fromTime;
     }
 
     /**
@@ -249,7 +248,7 @@ class User
      */
     public function getToTime(): string
     {
-        return $this->toTime;
+        return self::$toTime;
     }
 
 }
