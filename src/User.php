@@ -17,7 +17,7 @@ class User
     protected $email;
 
     /** @var array */
-    protected $follows = [];
+    public $follows = [];
 
     /** @var array */
     protected $artists = [];
