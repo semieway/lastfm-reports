@@ -75,7 +75,7 @@
 <!-- Followers -->
 {% for follow in user.follows %}
     {% if follow.totalScrobbles > 0 %}
-    <img src="{{ follow.avatar }}" style="width: 100px; height: 100px; border-radius: 50%{% if user.totalScrobbles >= 200 %}; border:6px solid gold {% endif %}">
+    <img src="{{ follow.avatar }}" style="width: 100px; height: 100px; border-radius: 50%{% if follow.totalScrobbles >= 200 %}; border:6px solid gold {% endif %}">
     <h2 style="font-size: 28px; margin-top: 0; margin-bottom: 10px">{{ follow.name|capitalize }}</h2>
 
     <p style="font-size: 19px; margin-top: 7px">
